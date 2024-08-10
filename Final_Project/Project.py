@@ -1,45 +1,115 @@
 import csv
-manufactureIndex = []
 
-#input
-with open('ManufacturerList.csv', newline='') as csvfile:
-  file = csv.reader(csvfile)
-  for line in file:
-    manuDict = {
-      'ID':  line[0],
-      'ManufactererName':line[1],
-      'itemType': line[2],
-      'damagedInd':line[3]
-    }
-    manufactureIndex.append(manuDict)
-
-print(manufactureIndex)
-
-"""with open('PriceList.csv', newline='') as csvfile:
-  file = csv.reader(csvfile)
-  for i in file:
-      for j in manufactureIndex:
-          if int(i[0]) == int(j['ID']):
-              j['Price'] = i[1]
-
-i = j = 0
-with open('ServiceDatesList.csv', newline='') as csvfile:
-  file = csv.reader(csvfile)
-  for i in file:
-      for j in manufactureIndex:
-          if int(i[0]) == int(j['ID']):
-              j['Date'] = i[1]
+class csvReader:
+    def __init__(self):
+      self.manufactureIndex = []
+    
+    def printIndex(self):
+        return self.manufactureIndex
+        
+    def manuInput(self, csvFile):
+      with open(csvFile, newline='') as csvfile:
+          file = csv.reader(csvfile)
+          for line in file:
+              manuDict = {
+                  'ID': line[0], 
+                  'ManufacturerName': line[1], 
+                  'itemType': line[2], 
+                  'damagedInd': line[3]
+              }
+              self.manufactureIndex.append(manuDict)
 
 
+    def priceInput(self, csvFile):
+      with open(csvFile, newline='') as csvfile:
+          file = csv.reader(csvfile)
+          for priceInputLine in file:
+              for j in self.manufactureIndex:
+                  if int(priceInputLine[0]) == int(j['ID']): 
+                      j['Price'] = priceInputLine[1] 
 
-#output
-with open('FullInventory.csv', mode='w', newline='') as file:
-  writer = csv.writer(file)
-  for i in manufactureIndex:
-    writer.writerow([i['ID'], i['ManufactererName'], i['itemType'], i['Price'], i['Date'], i['damagedInd']])
-"""
+    def serviceInput(self, csvFile):
+      with open(csvFile, newline='') as csvfile:
+          file = csv.reader(csvfile)
+          for priceInputLine in file:
+              for j in self.manufactureIndex:
+                  if int(priceInputLine[0]) == int(j['ID']): 
+                      j['Date'] = priceInputLine[1] 
 
-class inventoryManager():
+    def inventoryOutput(self, outputFile):
+        self.manufactureIndex.sort(key=lambda x: x['ManufacturerName'])
+        with open(outputFile, mode='w', newline='') as file:
+              writer = csv.writer(file)
+              for i in self.manufactureIndex:
+                  writer.writerow([
+                      i['ID'], 
+                      i['ManufacturerName'], 
+                      i['itemType'], 
+                      i.get('Price', 'N/A'),  
+                      i.get('Date', 'N/A'),   
+                      i['damagedInd']
+                  ])
+              
+    def inventoryListOutput(self, csvFile1, csvFile2, csvFile3):
+        self.manufactureIndex.sort(key=lambda x: x['ID'])
+        with open(csvFile1, mode='w', newline='') as file:
+              writer = csv.writer(file)
+              for i in self.manufactureIndex:
+                  if i['itemType'] == 'phone':
+                      writer.writerow([
+                          i['ID'], 
+                          i['ManufacturerName'], 
+                          i.get('Price', 'N/A'),  
+                          i.get('Date', 'N/A'),   
+                          i['damagedInd']
+                      ])
+        with open(csvFile2, mode='w', newline='') as file: 
+              writer = csv.writer(file)
+              for i in self.manufactureIndex:
+                  if i['itemType'] == 'tower':
+                      writer.writerow([
+                          i['ID'], 
+                          i['ManufacturerName'], 
+                          i.get('Price', 'N/A'),  
+                          i.get('Date', 'N/A'),   
+                          i['damagedInd']
+                      ])    
+        with open(csvFile3, mode='w', newline='') as file: 
+              writer = csv.writer(file)
+              for i in self.manufactureIndex:
+                  if i['itemType'] == 'laptop':
+                      writer.writerow([
+                          i['ID'], 
+                          i['ManufacturerName'], 
+                          i.get('Price', 'N/A'),  
+                          i.get('Date', 'N/A'),   
+                          i['damagedInd']
+                      ])
+
+
+
+def main():
+  go = csvReader()
+  go.manuInput('ManufacturerList.csv')
+  go.priceInput('PriceList.csv')
+  go.serviceInput('ServiceDatesList.csv')
+
+  
+  go.inventoryOutput('FullInventory.csv')
+ 
+  go.inventoryListOutput('PhoneInventory.csv', 'TowerInventory.csv', 'LaptopInventory.csv')
+  
+  #c
+  
+
+  #d
+
+
+if __name__ == "__main__":
+  main()
+
+#skeleton
+"""class inventoryManager():
     inventorydata = {}
     def read_files(file1 = "Name of first file", file2 = "Name of second file", file3 = "Name of third file"):
         print(file1)#write a wit block that reads from the file and puts data into the inventory data that I have defined making the customer ID the key.
@@ -69,4 +139,4 @@ if __name__ == "__main__":
     inventoryManager.fullinventory()
     inventoryManager.inventorylist()
     inventoryManager.pastservicedata()
-    inventoryManager.damagedinventory()
+    inventoryManager.damagedinventory()"""
