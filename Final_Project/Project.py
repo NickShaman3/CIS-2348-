@@ -93,7 +93,7 @@ class csvReader:
 go = csvReader()
 go.manuInput('ManufacturerList.csv')
 print(go.manufactureIndex)
-  """go.priceInput('PriceList.csv')
+"""go.priceInput('PriceList.csv')
   go.serviceInput('ServiceDatesList.csv')
 
   
