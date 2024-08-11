@@ -160,4 +160,4 @@ go.damagedInventoryOutput('DamagedInvetory.csv')
 if __name__ == "__main__":
   main()
 
-#skeleton
+
