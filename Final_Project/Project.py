@@ -151,10 +151,10 @@ go.inventoryOutput('FullInventory.csv')
  
 go.inventoryListOutput('PhoneInventory.csv', 'TowerInventory.csv', 'LaptopInventory.csv')
   
-  #c
+  
 go.getpastServicedateinventory('PastServiceDateInventory.csv')
 
-  #d
+  
 go.damagedInventoryOutput('DamagedInvetory.csv')
 
 if __name__ == "__main__":
