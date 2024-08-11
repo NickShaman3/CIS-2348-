@@ -115,7 +115,7 @@ class csvReader:
                 
                 
         def damagedInventoryOutput(self, outputFile):
-            damagedInventory = sorted([item for item in self.manufactureIndex if item["damagedInd"] == "damaged"], key = lambda x: float(x["Price"]), reverse = True)
+            damagedInventory = sorted([input for input in self.manufactureIndex if input["damagedInd"] == "damaged"], key = lambda x: float(x["Price"]), reverse = True)
             with open(outputFile, "w", newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow([
