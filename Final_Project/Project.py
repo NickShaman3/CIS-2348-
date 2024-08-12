@@ -155,7 +155,7 @@ go.inventoryListOutput('PhoneInventory.csv', 'TowerInventory.csv', 'LaptopInvent
 go.getpastServicedateinventory('PastServiceDateInventory.csv')
 
   
-go.damagedInventoryOutput('DamagedInvetory.csv')
+go.damagedInventoryOutp('DamagedInvetory.csv')
 
 if __name__ == "__main__":
   main()
