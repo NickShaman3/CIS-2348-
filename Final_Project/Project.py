@@ -73,14 +73,14 @@ class csvReader:
                     ])
         with open(csvFile3, mode='w', newline='') as file:
             writer = csv.writer(file)
-            for i in self.manufactureIndex:
-                if i['itemType'] == 'laptop':
+            for input in self.manufactureIndex:
+                if input['itemType'] == 'laptop':
                     writer.writerow([
-                        i['ID'], 
-                        i['ManufacturerName'],
-                        i.get('Price', 'N/A'),
-                        i.get('Date', 'N/A'), 
-                        i['damagedInd']
+                        input['ID'], 
+                        input['ManufacturerName'],
+                        input.get('Price', 'N/A'),
+                        input.get('Date', 'N/A'), 
+                        input['damagedInd']
                     ])
 
     def serviceDateOutput(self, outputFile):
@@ -90,8 +90,7 @@ class csvReader:
             writer = csv.writer(file)
             for input in self.manufactureIndex:
                 if input['Date'] != 'N/A':
-                    theDate = datetime.strptime(input['Date'],
-                                                '%m/%d/%Y').date()
+                    theDate = datetime.strptime(input['Date'], '%m/%d/%Y').date()
                     if theDate < datetime.today().date():  #compares the dates
                         writer.writerow([
                             input['ID'], 
@@ -109,10 +108,12 @@ class csvReader:
             for input in self.manufactureIndex:
                 if input['damagedInd'] != '':
                     writer.writerow([
-                        input['ID'], input['ManufacturerName'],
+                        input['ID'], 
+                        input['ManufacturerName'],
                         input['itemType'],
                         input.get('Price', 'N/A'),
-                        input.get('Date', 'N/A'), input['damagedInd']
+                        input.get('Date', 'N/A'), 
+                        input['damagedInd']
                     ])
 
 
@@ -121,10 +122,8 @@ def main():
     go.manuInput('ManufacturerList.csv')
     go.priceInput('PriceList.csv')
     go.serviceInput('ServiceDatesList.csv')
-
     go.inventoryOutput('FullInventory.csv')
-    go.inventoryListOutput('PhoneInventory.csv', 'TowerInventory.csv',
-                           'LaptopInventory.csv')
+    go.inventoryListOutput('PhoneInventory.csv', 'TowerInventory.csv', 'LaptopInventory.csv')
     go.serviceDateOutput('PastServiceDateInventory.csv')
     go.damagedListOutput('DamagedInventory.csv')
 
