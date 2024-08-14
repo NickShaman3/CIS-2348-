@@ -5,6 +5,12 @@ from datetime import datetime
 class csvReader:
     manufactureIndex = []
 
+    #def __init__(self):
+    #self.manufactureIndex = []
+
+    #def printIndex(self):
+    #return self.manufactureIndex
+
     def manuInput(self, csvFile):  #recievs input
         with open(csvFile) as csvfile:
             file = csv.reader(csvfile)
@@ -33,54 +39,46 @@ class csvReader:
                     if int(priceInputLine[0]) == int(j['ID']):
                         j['Date'] = priceInputLine[1]
 
-    def inventoryOutput(self, outputFile):  
+    def inventoryOutput(self, outputFile):  #this is for a
         self.manufactureIndex.sort(key=lambda x: x['ManufacturerName'])
         with open(outputFile, mode='w', newline='') as file:
             writer = csv.writer(file)
             for input in self.manufactureIndex:
                 writer.writerow([
-                    input['ID'], 
-                    input['ManufacturerName'], 
-                    input['itemType'],
+                    input['ID'], input['ManufacturerName'], input['itemType'],
                     input.get('Price', 'N/A'),
-                    input.get('Date', 'N/A'), 
-                    input['damagedInd']
+                    input.get('Date', 'N/A'), input['damagedInd']
                 ])
 
-    def inventoryListOutput(self, csvFile1, csvFile2,csvFile3):  
+    def inventoryListOutput(self, csvFile1, csvFile2,
+                            csvFile3):  #this is for b
         self.manufactureIndex.sort(key=lambda x: x['ID'])
         with open(csvFile1, mode='w', newline='') as file:
             writer = csv.writer(file)
             for input in self.manufactureIndex:
                 if input['itemType'] == 'phone':
                     writer.writerow([
-                        input['ID'], 
-                        input['ManufacturerName'],
+                        input['ID'], input['ManufacturerName'],
                         input.get('Price', 'N/A'),
-                        input.get('Date', 'N/A'), 
-                        input['damagedInd']
+                        input.get('Date', 'N/A'), input['damagedInd']
                     ])
         with open(csvFile2, mode='w', newline='') as file:
             writer = csv.writer(file)
             for input in self.manufactureIndex:
                 if input['itemType'] == 'tower':
                     writer.writerow([
-                        input['ID'], 
-                        input['ManufacturerName'],
+                        input['ID'], input['ManufacturerName'],
                         input.get('Price', 'N/A'),
-                        input.get('Date', 'N/A'), 
-                        input['damagedInd']
+                        input.get('Date', 'N/A'), input['damagedInd']
                     ])
         with open(csvFile3, mode='w', newline='') as file:
             writer = csv.writer(file)
             for i in self.manufactureIndex:
                 if i['itemType'] == 'laptop':
                     writer.writerow([
-                        i['ID'], 
-                        i['ManufacturerName'],
+                        i['ID'], i['ManufacturerName'],
                         i.get('Price', 'N/A'),
-                        i.get('Date', 'N/A'), 
-                        i['damagedInd']
+                        i.get('Date', 'N/A'), i['damagedInd']
                     ])
 
     def serviceDateOutput(self, outputFile):
@@ -90,30 +88,27 @@ class csvReader:
             writer = csv.writer(file)
             for input in self.manufactureIndex:
                 if input['Date'] != 'N/A':
-                    theDate = datetime.strptime(input['Date'], '%m/%d/%Y').date()
-                    if theDate > datetime.today().date():  #compares the dates
+                    theDate = datetime.strptime(input['Date'],
+                                                '%m/%d/%Y').date()
+                    if theDate < datetime.today().date():  #compares the dates
                         writer.writerow([
-                            input['ID'], 
-                            input['ManufacturerName'],
+                            input['ID'], input['ManufacturerName'],
                             input['itemType'],
                             input.get('Price', 'N/A'),
-                            input.get('Date', 'N/A'), 
-                            input['damagedInd']
+                            input.get('Date', 'N/A'), input['damagedInd']
                         ])
 
-    def damagedListOutput(self, csvFile): 
+    def damagedListOutput(self, csvFile):  #this is for d
         self.manufactureIndex.sort(reverse=True, key=lambda x: x['Price'])
         with open(csvFile, mode='w', newline='') as file:
             writer = csv.writer(file)
             for input in self.manufactureIndex:
                 if input['damagedInd'] != '':
                     writer.writerow([
-                        input['ID'], 
-                        input['ManufacturerName'],
+                        input['ID'], input['ManufacturerName'],
                         input['itemType'],
                         input.get('Price', 'N/A'),
-                        input.get('Date', 'N/A'), 
-                        input['damagedInd']
+                        input.get('Date', 'N/A'), input['damagedInd']
                     ])
 
 
