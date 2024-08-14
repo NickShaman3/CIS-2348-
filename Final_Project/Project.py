@@ -5,12 +5,6 @@ from datetime import datetime
 class csvReader:
     manufactureIndex = []
 
-    #def __init__(self):
-    #self.manufactureIndex = []
-
-    #def printIndex(self):
-    #return self.manufactureIndex
-
     def manuInput(self, csvFile):  #recievs input
         with open(csvFile) as csvfile:
             file = csv.reader(csvfile)
